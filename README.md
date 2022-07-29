@@ -3,7 +3,7 @@
 ## Introduction
 Measure anisotropy for layers of RoBERTa checkpoints. The [original work](https://aclanthology.org/2022.acl-long.217/) has been done on GPT-2 and CLIP.
 
-I have also done the measurement on SimCSE (the `sup-simcse-roberta-base` version).
+I have also done the measurement on 4 base versions of SimCSE. The large RoBERTa version is not used because the number of layers differ, and the model results cannot be naively plotted together.
 
 ## Method
 
@@ -27,4 +27,4 @@ The `notebooks` and `results` folder save the files as their names indicate.
 
 The RoBERTa result is saved in `anisotropy.pkl`, and the plot could be found in `anisotropy.ipynb`. The resulting anisotropy lies between the GPT-2 and CLIP. The result makes sense, as the original paper mentions that BERT produces clusters in the space, so isotropy to some extent (lower anisotropy) could be expected. However, in the last two layers of RoBERTa, there is still a jump in anisotropy. The anisotropy does not monotonically increase with the pre-training process. For each checkpoint, the words for calculation are resampled. Overall, the anisotropy increases for the last 2 layers, but decreases for other layers during pre-training.
 
-For SimCSE, the anisotropy for most layers is quite high, much higher than that of the corresponding layers in the RoBERTa checkpoints. However, the anisotropy starts to drop for the last 2 layers. See `anisotropy-SimCSE.ipynb` for the figure and other details. Note that the objective of SimCSE is to get good sentence embeddings instead of word embeddings. The anisotropy here is defined on the latter, where as the former is used to define uniformity as in Section 6.3 of [this paper](https://aclanthology.org/2022.acl-long.423/).
+For the RoBERTa variants of SimCSE, the anisotropy for most layers is quite high, much higher than that of the corresponding layers in the RoBERTa checkpoints. However, the anisotropy starts to drop for the last few layers. The unsupervised version has lower anisotropy in the final layer than the supervised version, a different ranking from the uniformity result (Figure 3 in the original paper). This means (word) anisotropy differs from (sentence) uniformity. For both BERT variants of SimCSE, the anisotropy is lower. See `anisotropy-SimCSE.ipynb` for the figure and other details. Note that the objective of SimCSE is to get good sentence embeddings instead of word embeddings. The anisotropy here is defined on the latter, where as the former is used to define uniformity as in Section 6.3 of [this paper](https://aclanthology.org/2022.acl-long.423/).
